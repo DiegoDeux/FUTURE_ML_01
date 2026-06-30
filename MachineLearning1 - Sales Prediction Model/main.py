@@ -113,7 +113,7 @@ def load_data(path):
 # DATA SOURCE
 # ============================================================
 
-st.sidebar.header("📂 Data Source")
+st.sidebar.header(" Data Source")
 
 
 use_upload = st.sidebar.checkbox(
@@ -219,7 +219,7 @@ growth_pct = (
 
 # EXECUTIVE OVERVIEW
 
-st.markdown("## 📌 Executive Overview")
+st.markdown("## Executive Overview")
 
 
 
@@ -227,7 +227,7 @@ if growth_pct > 5:
 
     recommendation = \
     (
-        "📈 Demand is increasing. "
+        " Demand is increasing. "
         "Consider preparing additional inventory."
     )
 
@@ -235,7 +235,7 @@ if growth_pct > 5:
 elif growth_pct < -5:
 
     recommendation = (
-        "📉 Demand is decreasing. "
+        " Demand is decreasing. "
         "Review inventory levels."
     )
 
@@ -243,7 +243,7 @@ elif growth_pct < -5:
 else:
 
     recommendation = (
-        "📊 Demand is stable. "
+        "Demand is stable. "
         "Maintain current strategy."
     )
 
@@ -303,11 +303,11 @@ k4.metric(
 
 tab1, tab2, tab3, tab4, tab5 = st.tabs(
 [
-    "📈 Trends",
-    "🛒 Products",
-    "🔮 Forecast",
-    "📉 Models",
-    "📌 Business Insights"
+    " Trends",
+    " Products",
+    " Forecast",
+    " Models",
+    " Business Insights"
 ]
 )
 
@@ -499,7 +499,7 @@ with tab1:
                 """
             )
 
-            st.markdown(   "## 🔍 Automated Insights" )
+            st.markdown(   "##  Automated Insights" )
 
             trend = daily["Sales"].diff().mean()
 
@@ -521,18 +521,18 @@ with tab1:
             )
 
             st.write(
-                f"📈 {trend_message}"
+                f" {trend_message}"
             )
 
             st.write(
-                f"📅 Highest recorded sales occurred on: {highest_day.date()}"
+                f"Highest recorded sales occurred on: {highest_day.date()}"
             )
 
         # TAB 4 - MODEL COMPARISON
 
         with tab4:
 
-            st.subheader(  "📉 Machine Learning Model Evaluation" )
+            st.subheader(  "Machine Learning Model Evaluation" )
 
             ml = daily.copy()
 
@@ -667,11 +667,11 @@ with tab1:
 
         with tab5:
 
-            st.subheader( "📌 Final Business Insights" )
+            st.subheader( "Final Business Insights" )
 
             st.markdown(
                 """
-                ## 🧠 Project Summary
+                ## Project Summary
     
                 This platform converts historical retail transaction data
                 into meaningful business intelligence.
@@ -682,7 +682,7 @@ with tab1:
     
                 ---
     
-                ## 📊 Key Findings
+                ## Key Findings
     
     
                 **Sales Trends**
@@ -711,7 +711,7 @@ with tab1:
     
                 ---
     
-                ## 💼 Business Recommendations
+                ## Business Recommendations
     
     
                 ✅ Use forecasts to prepare inventory before high-demand periods.
@@ -728,7 +728,7 @@ with tab1:
     
                 ---
     
-                ## 🚀 Final Conclusion
+                ## Final Conclusion
     
     
                 This project demonstrates how data science can transform
@@ -746,7 +746,7 @@ with tab1:
             )
 
             st.subheader(
-                "📌 System Summary"
+                "System Summary"
             )
 
             c1, c2, c3 = st.columns(3)
@@ -816,6 +816,6 @@ with tab1:
 
         st.caption(
             """
-            📊 Enterprise Sales Intelligence Platform  
+            Enterprise Sales Intelligence Platform  
             """
         )
