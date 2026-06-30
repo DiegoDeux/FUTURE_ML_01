@@ -107,11 +107,7 @@ def load_data(path):
 
     return df
 
-
-
-# ============================================================
 # DATA SOURCE
-# ============================================================
 
 st.sidebar.header(" Data Source")
 
@@ -242,10 +238,7 @@ elif growth_pct < -5:
 
 else:
 
-    recommendation = (
-        "Demand is stable. "
-        "Maintain current strategy."
-    )
+    recommendation = ( "Demand is stable. " "Maintain current strategy.")
 
 
 
@@ -263,9 +256,7 @@ uses forecasting models to support business planning.
 """
 )
 
-
 # KPI DASHBOARD
-
 
 st.subheader(
 "📊 Business Performance Overview"
@@ -382,7 +373,7 @@ with tab1:
         with tab2:
 
             st.subheader(
-                "🛒 Product Performance Analysis"
+                "Product Performance Analysis"
             )
 
             top_products = (
@@ -418,7 +409,7 @@ with tab1:
 
         with tab3:
 
-            st.subheader( "🔮 90-Day Sales Forecast" )
+            st.subheader( "90-Day Sales Forecast" )
 
             fig = go.Figure()
 
@@ -574,37 +565,21 @@ with tab1:
 
             lr = LinearRegression()
 
-            lr.fit(
-                X_train,
-                y_train
-            )
+            lr.fit(X_train,y_train)
 
-            lr_predictions = lr.predict(
-                X_test
-            )
+            lr_predictions = lr.predict(X_test)
 
             # Random Forest
 
-            rf = RandomForestRegressor(
-                n_estimators=150,
-                random_state=42
-            )
+            rf = RandomForestRegressor(n_estimators=150,random_state=42)
 
-            rf.fit(
-                X_train,
-                y_train
-            )
+            rf.fit(X_train,y_train)
 
-            rf_predictions = rf.predict(
-                X_test
-            )
+            rf_predictions = rf.predict(X_test)
 
 
             def evaluate(name, actual, predicted):
-                mae = mean_absolute_error(
-                    actual,
-                    predicted
-                )
+                mae = mean_absolute_error(actual,predicted)
 
                 rmse = np.sqrt(
                     mean_squared_error(
@@ -770,7 +745,7 @@ with tab1:
 
         st.markdown("---")
 
-        st.subheader(  "📈 Demand Reality vs Long-Term Trend")
+        st.subheader(  " Demand Reality vs Long-Term Trend")
 
         rolling = daily.copy()
 
