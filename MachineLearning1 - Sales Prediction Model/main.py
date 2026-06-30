@@ -85,25 +85,15 @@ def load_data(path):
 
 
     # Convert date format
-    df["InvoiceDate"] = pd.to_datetime(
-        df["InvoiceDate"]
-    )
+    df["InvoiceDate"] = pd.to_datetime( df["InvoiceDate"])
 
 
     # Create Sales feature
-    df["Sales"] = (
-        df["Quantity"] *
-        df["UnitPrice"]
-    )
+    df["Sales"] = ( df["Quantity"] *df["UnitPrice"])
 
 
     # Remove cancelled transactions
-    df = df[
-        ~df["InvoiceNo"]
-        .astype(str)
-        .str.startswith("C")
-    ]
-
+    df = df[ ~df["InvoiceNo"].astype(str).str.startswith("C")]
 
     return df
 
@@ -111,20 +101,12 @@ def load_data(path):
 
 st.sidebar.header(" Data Source")
 
-
-use_upload = st.sidebar.checkbox(
-    "Upload custom dataset",
-    value=False
-)
-
+use_upload = st.sidebar.checkbox("Upload custom dataset",value=False)
 
 
 if use_upload:
 
-    file = st.sidebar.file_uploader(
-        "Upload Excel File",
-        type=["xlsx"]
-    )
+    file = st.sidebar.file_uploader( "Upload Excel File", type=["xlsx"])
 
 
     if file:
@@ -133,13 +115,9 @@ if use_upload:
 
     else:
 
-        st.warning(
-            "Please upload a dataset"
-        )
+        st.warning( "Please upload a dataset"  )
 
         st.stop()
-
-
 
 else:
 
@@ -162,19 +140,10 @@ daily = (
     df.groupby( df["InvoiceDate"].dt.date )["Sales"].sum().reset_index()
 )
 
-daily.columns = [
-    "Date",
-    "Sales"
-]
-
-
-daily["Date"] = pd.to_datetime(
-    daily["Date"]
-)
-
+daily.columns = ["Date","Sales"]
+daily["Date"] = pd.to_datetime(daily["Date"])
 
 # FORECAST MODEL
-
 
 prophet_df = daily.rename(
     columns={
@@ -184,20 +153,11 @@ prophet_df = daily.rename(
 )
 
 model = Prophet()
+model.fit( prophet_df)
 
-model.fit(
-    prophet_df
-)
+future = model.make_future_dataframe(periods=90)
 
-
-future = model.make_future_dataframe(
-    periods=90
-)
-
-
-forecast = model.predict(
-    future
-)
+forecast = model.predict(future)
 
 
 growth = (
@@ -212,21 +172,16 @@ growth_pct = (
 ) * 100
 
 
-
 # EXECUTIVE OVERVIEW
 
 st.markdown("## Executive Overview")
 
-
-
 if growth_pct > 5:
 
-    recommendation = \
-    (
+    recommendation = (
         " Demand is increasing. "
         "Consider preparing additional inventory."
     )
-
 
 elif growth_pct < -5:
 
@@ -234,7 +189,6 @@ elif growth_pct < -5:
         " Demand is decreasing. "
         "Review inventory levels."
     )
-
 
 else:
 
@@ -354,27 +308,15 @@ with tab1:
         )
 
 
-        fig = px.bar(
-            x=weekday.index,
-            y=weekday.values,
-            title="Weekly Sales Pattern"
-        )
+        fig = px.bar(x=weekday.index,y=weekday.values,title="Weekly Sales Pattern")
 
-
-        st.plotly_chart(
-            fig,
-            use_container_width=True
-        )
-
+        st.plotly_chart(fig,use_container_width=True)
 
         # TAB 2 - PRODUCT ANALYSIS
 
-
         with tab2:
 
-            st.subheader(
-                "Product Performance Analysis"
-            )
+            st.subheader("Product Performance Analysis")
 
             top_products = (
                 df.groupby("Description")["Sales"]
@@ -511,13 +453,9 @@ with tab1:
                 ]
             )
 
-            st.write(
-                f" {trend_message}"
-            )
+            st.write(  f" {trend_message}"  )
 
-            st.write(
-                f"Highest recorded sales occurred on: {highest_day.date()}"
-            )
+            st.write(   f"Highest recorded sales occurred on: {highest_day.date()}" )
 
         # TAB 4 - MODEL COMPARISON
 
@@ -581,38 +519,17 @@ with tab1:
             def evaluate(name, actual, predicted):
                 mae = mean_absolute_error(actual,predicted)
 
-                rmse = np.sqrt(
-                    mean_squared_error(
-                        actual,
-                        predicted
-                    )
-                )
+                rmse = np.sqrt( mean_squared_error(actual,predicted))
 
-                return [
-                    name,
-                    mae,
-                    rmse
-                ]
-
+                return [name,mae,rmse]
 
             results = pd.DataFrame(
                 [
-                    evaluate(
-                        "Linear Regression",
-                        y_test,
-                        lr_predictions
-                    ),
+                    evaluate("Linear Regression",y_test,lr_predictions),
 
-                    evaluate(
-                        "Random Forest",
-                        y_test,
-                        rf_predictions
-                    )
+                    evaluate("Random Forest",y_test,rf_predictions)
                 ],
-                columns=[
-                    "Model",
-                    "MAE",
-                    "RMSE"
+                columns=["Model","MAE","RMSE"
                 ]
             )
 
